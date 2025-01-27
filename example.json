@@ -1,0 +1,68 @@
+{
+   "Header":{
+      "Quoteback":"QuoteBack001",
+      "TransactionId":"21e4ff4c-1bc9-4865-916d-103f47d209d0"
+   },
+   "Body":{
+      "StatusCode":200,
+      "OrderNumber":"153101274",
+      "MotorVehicleReports":[
+         {
+            "Identifier":"619009840",
+            "Status":{
+               "Code":"V",
+               "Description":"NON-CLEAR report"
+            },
+            "ViolationsType":{
+               "Code":"C",
+               "Description":"Report passed through Custom violation code/point process",
+               "PointTotal":" 1"
+            },
+            "DMVReportDate":"20150512",
+            "ArchiveFlag":"N",
+            "DriversPrivacyProtectionActFlag":"Y",
+            "Driver":{
+               "Name":"SIMAD SEMOUR",
+               "Address":{
+                  "Street1":"10005 PENNSYLVANNIA ST",
+                  "CityStateZip":"LAWRENCE, KS 66044"
+               },
+               "DLNumber":"K01048788",
+               "DLState":"KS",
+               "DOB":"19750408",
+               "Gender":"M",
+               "Height":"5'05",
+               "Weight":"185",
+               "EyeColor":"BRO",
+               "License":{
+                  "Class":"C",
+                  "Status":"CANCELL",
+                  "IssuedDate":"20210327",
+                  "ExpirationDate":"20281103"
+               },
+               "Detail":"REQUESTED AS: SIMAD SEMOUR DOB: 04081975 LICENSE : K01048788 PERS:01: NOT LICENSED CANCELL C 0327202111032028 LIC CLASS: C DESC: OPERATOR LIC STATUS: CANCELLED LIC ISSUED: 03/27/2021 LIC EXPIRES: 11/03/2028 LIC TYPE: R DESC: REGULAR DRIVER LIC RENEWAL: 02/20/2010 ORIGINAL ISSUE DATE: 07/01/2001 IMAGE:P This report is generated for insurance purposes only and may not be used for any other purpose. The use and dissemination of the report and information in it must comply with your iiX agreement and the Fair Credit Reporting Act, the Driver's Privacy Protection Act, and any applicable state statute(s). The data in the report from the applicable state agency or service bureau is provided through iiX \"as is.\" --- Customer-defined MVR scoring has been applied to this record. Customer is solely responsible for the application and use of the resulting score.",
+               "Violations":[
+                  {
+                     "ViolationType":"VIOL",
+                     "ViolationDate":"20220620",
+                     "ConvictionDate":"20220621",
+                     "StateAssignedCode":"TU3",
+                     "CustomCode":"426100",
+                     "CustomPoints":"1",
+                     "Detail":"MAKING IMPROPER TURN LOCATION: SUMNER COURT: MUNICIPAL STATE: KANSAS"
+                  },
+                  {
+                     "ViolationType":"VIOL",
+                     "ViolationDate":"20210616",
+                     "ConvictionDate":"20210718",
+                     "StateAssignedCode":"DI1",
+                     "CustomCode":"111300",
+                     "CustomPoints":"0",
+                     "Detail":"DUI BAC .08 TO .1499 LOCATION: SUMNER COURT: DISTRICT STATE: KANSAS"
+                  }
+               ]
+            }
+         }
+      ]
+   }
+}

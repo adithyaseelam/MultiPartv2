@@ -1,0 +1,58 @@
+openapi: 3.0.0
+info:
+  title: Hazard Hub Outbound API
+  version: v1
+  description: Outbound API Proxy to fetch geographic risk data set that delivers  geospatial risk variables through a data API so that insurers can assess property risk quickly and intelligently from Hazard Hub
+  contact:
+    email: api@intactinsurance.com
+servers:
+  - description: Dev url
+    url: https://api-intd.intactspecialty.com/v1/generic/thirdparty/hazardhub/
+  - description: QA url
+    url: https://api-intq.intactspecialty.com/v1/generic/thirdparty/hazardhub/
+  - description: dr url
+    url: https://api-intpreprod.intactspecialty.com/v1/generic/thirdparty/hazardhub/
+  - description: Prod url
+    url: https://api-int.intactspecialty.com/v1/generic/thirdparty/hazardhub/
+tags:
+  - name: HH
+    description: Outbound API Proxy to fetch geographic risk data set that delivers  geospatial risk variables through a data API so that insurers can assess property risk quickly and intelligently from Hazard Hub
+paths:
+  /HH:
+    post:
+      tags:
+        - HH
+      summary: Fetching data from HH
+      operationId: getData
+      description: Fetching data from HH by address
+      requestBody:
+        description: Fetching data from HH
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HH'
+      responses:
+        '200':
+          description: Success Response
+        '400':
+          description: Bad Request
+components:
+  schemas:
+    HH:
+      type: object
+      properties:
+        CorrelationId:
+          description: unique Id for apigee transcation
+          type: string
+          minLength: 3
+          maxLength: 128
+        BussinessUnit:
+          type: string
+        Address:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+        Zip:
+          type: string

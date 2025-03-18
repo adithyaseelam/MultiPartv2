@@ -1,0 +1,274 @@
+openapi: 3.0.0
+info:
+  title: MSB OUTBOUND API
+  version: v1
+  description: Commercial ExpressLync™ is the Web service API to the Commercial Express platform. The ExpressLync Web services can be used to programmatically invoke the Commercial Express application for creating and managing commercial valuations.
+  contact:
+    email: api@intactinsurance.com
+servers:
+  - description: Dev url
+    url: https://api-intd.intactspecialty.com/v1/generic/thirdparty/outbound/expresslync/
+  - description: QA url
+    url: https://api-intq.intactspecialty.com/v1/generic/thirdparty/outbound/expresslync/
+  - description: dr url
+    url: https://api-intpreprod.intactspecialty.com/v1/generic/thirdparty/outbound/expresslync/
+  - description: Prod url
+    url: https://api-int.intactspecialty.com/v1/generic/thirdparty/outbound/expresslync/
+tags:
+  - name: MSB
+    description: Commercial ExpressLync™ is the Web service API to the Commercial Express platform. The ExpressLync Web services can be used to programmatically invoke the Commercial Express application for creating and managing commercial valuations.
+paths:
+  /addvaluation:
+    post:
+      tags:
+        - MSB
+      summary: Add and retrieve valuation of the given address/addresses from MSB
+      operationId: addValuation
+      description: Fetching data from MSB
+      requestBody:
+        description: Fetching data from MSB
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestAddValuation'
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+  /getvaluation:
+    post:
+      tags:
+        - MSB
+      summary: retrieve valuation of the given address/addresses from MSB
+      operationId: getValuation
+      description: Fetching data from MSB
+      requestBody:
+        description: Fetching data from MSB
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestGetValuation'
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+  /updatevaluation:
+    post:
+      tags:
+        - MSB
+      summary: update the property parameters and re-calculate the valuation of the given address/addresses from MSB
+      operationId: updateValuation
+      description: Fetching data from MSB
+      requestBody:
+        description: Fetching data from MSB
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestUpdateValuation'
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+  /calculatevaluation:
+    post:
+      tags:
+        - MSB
+      summary: re-valuation of the given address/addresses from MSB
+      operationId: calculateValuation
+      description: Fetching data from MSB
+      requestBody:
+        description: Fetching data from MSB
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestCalculateValuation'
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas:
+    RequestAddValuation:
+      required:
+        - CorrelationId
+        - BusinessUnit
+        - RequestObject
+      type: object
+      properties:
+        CorrelationId:
+          type: string
+        BusinessUnit:
+          type: string
+        RequestObject:
+          $ref: '#/components/schemas/RequestObject'
+
+    RequestObject:
+      required:
+        - Valuation
+      type: object
+      properties:
+        Valuation:
+          $ref: '#/components/schemas/AddValuation'
+
+    RequestUpdateValuation:
+      required:
+        - CorrelationId
+        - BusinessUnit
+        - Valuation
+      type: object
+      properties:
+        CorrelationId:
+          type: string
+        BusinessUnit:
+          type: string
+        RequestObject:
+          $ref: '#/components/schemas/UpdateRequestObject'
+
+    UpdateRequestObject:
+      required:
+        - Valuation
+      type: object
+      properties:
+        Valuation:
+          $ref: '#/components/schemas/UpdateValuation'
+
+    AddValuation:
+      required:
+        - EffectiveDate
+        - Bussiness
+        - Locations
+      type: object
+      properties:
+        ValuationNumber:
+          type: string
+        EffectiveDate:
+          type: string
+          format: date-time
+        ValueBasis:
+          type: integer
+        Bussiness:
+          $ref: '#/components/schemas/Business'
+        Locations:
+          $ref: '#/components/schemas/Location'
+
+    UpdateValuation:
+      type: object
+      properties:
+        ID:
+          type: string
+        ValuationNumber:
+          type: string
+        EffectiveDate:
+          type: string
+          format: date-time
+        ValueBasis:
+          type: integer
+        Bussiness:
+          $ref: '#/components/schemas/Business'
+        Locations:
+          $ref: '#/components/schemas/Location'
+
+    Business:
+      type: object
+      properties:
+        Name:
+          type: string
+        Address:
+          $ref: '#/components/schemas/Address'
+
+    Address:
+      type: object
+      properties:
+        City:
+          type: string
+        RegionCode:
+          type: string
+        Line1:
+          type: string
+        Line2:
+          type: string
+        PostalCode:
+          type: string
+        CountryCode:
+          type: string
+        IsStandard:
+          type: boolean
+
+    Location:
+      type: object
+      properties:
+        IsHeadquarters:
+          type: boolean
+        Address:
+          $ref: '#/components/schemas/Address'
+        Buildings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Building'
+
+    Building:
+      type: object
+    RequestGetValuation:
+      type: object
+      properties:
+        CorrelationId:
+          type: string
+        BusinessUnit:
+          type: string
+        ValuationID:
+          type: string
+    RequestCalculateValuation:
+      type: object
+      properties:
+        CorrelationId:
+          type: string
+        BusinessUnit:
+          type: string
+        ValuationID:
+          type: string
+  responses:
+    '200':
+      description: Success Response
+      content:
+        application/json:
+          schema:
+            type: object
+
+
+

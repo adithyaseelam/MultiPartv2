@@ -1,0 +1,70 @@
+{
+    "CorrelationId": "3c457041-56d2-42d0-b00c-ea8c12fb84df",
+    "BussinessUnit": "SpecialtyProperty",
+    "RequestObject": {
+        "Valuation": {
+            "EffectiveDate": "2023-07-28T00:00:00",
+            "ID": null,
+            "Business": {
+                "Address": {
+                    "City": "Carrollton",
+                    "RegionCode": "TX",
+                    "Line1": "1554 Joy Dr",
+                    "CountryCode": "USA",
+                    "PostalCode": "75007"
+                }
+            },
+            "Locations": [
+                {
+                    "IsHeadquarters": true,
+                    "Address": {
+                        "City": "Carrollton",
+                        "RegionCode": "TX",
+                        "Line1": "1554 Joy Dr",
+                        "PostalCode": "75409"
+                    },
+                    "Buildings": [
+                        {
+                            "Number": "1",
+                            "Sections": [
+                                {
+                                    "Stories": 1,
+                                    "GrossFloorArea": 35500,
+                                    "ConstructionTypes": {
+                                        "ConstructionTypes": [
+                                            {
+                                                "ConstructionCode": "3",
+                                                "Percent": 100
+                                            }
+                                        ]
+                                    },
+                                    "Occupancies": {
+                                        "Occupancies": [
+                                            {
+                                                "Code": 8210,
+                                                "Percent": 100
+                                            }
+                                        ]
+                                    },
+                                    "Materials": [
+                                        {
+                                            "ItemID": 279,
+                                            "GroupID": 44,
+                                            "Value": 0,
+                                            "Type": 1,
+                                            "ValueType": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "AssignedUser": "OneBeaconELTestUser"
+        },
+        "CalculateContents": false,
+        "CalculateValuation": true,
+        "ReturnAddedValuation": true
+    }
+}

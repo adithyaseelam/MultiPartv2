@@ -1,0 +1,54 @@
+var request = JSON.parse(context.getVariable('request.content'));
+var uriPath = context.getVariable('proxy.pathsuffix');
+const requestData = request.RequestData;
+const SUBMIT_JOB = "VERISKSUBMITJOB";
+const JOBS_DETAIL = "VERISKJOBDETAILS";
+const JOBS_RESULT = "VERISKJOBRESULTS";
+const JOBS_LOG = "VERISKJOBLOG";
+const JOBS_FAILURES = "VERISKJOBCALLBACKFAILURES";
+const SUBMIT_CSV_JOB = "VERISKSUBMITCSVJOB";
+const GETJOBSRESULT_PREFIX = "JOB_";
+
+var bckndReq = {};
+var internalJobId = "";
+var dataSourceType;
+if (uriPath == "/job") {
+    dataSourceType = SUBMIT_JOB;
+    internalJobId = context.getVariable('uuid');
+    for (var i = 0; i < requestData.length; i++) {
+        if (internalJobId !== "") {
+            requestData[i].InternalJobId = internalJobId;
+        }
+    }
+} else if (uriPath == "/jobs/result") {
+    dataSourceType = JOBS_RESULT ;
+    for (var i = 0; i < requestData.length; i++) {
+        var JobId = GETJOBSRESULT_PREFIX + requestData[i].JobId
+        requestData[i].JobId = JobId;
+    }
+} else if (uriPath == "/jobs/detail") {
+    dataSourceType = JOBS_DETAIL ;
+    for (var i = 0; i < requestData.length; i++) {
+        var JobId = requestData[i].JobId
+        requestData[i].JobId = JobId;
+    }
+} else if (uriPath == "/jobs/failures") {
+    dataSourceType = JOBS_FAILURES ;
+} else if (uriPath == "/job/csv") {
+    dataSourceType = SUBMIT_CSV_JOB ;
+    internalJobId = context.getVariable('uuid');
+    for (var i = 0; i < requestData.length; i++) {
+        if (internalJobId !== "") {
+            requestData[i].InternalJobId = internalJobId;
+        }
+    }
+}
+
+    bckndReq.DataSourceType = dataSourceType;
+    bckndReq.CorrelationId = request.CorrelationId;
+    bckndReq.CompleteResponse = true;
+    bckndReq.BussinessUnit = request.BussinessUnit;
+    bckndReq.TimeToLive = request.TimeToLive;
+    bckndReq.RequestData = requestData;
+
+    context.setVariable("request.content", JSON.stringify(bckndReq));

@@ -1,0 +1,44 @@
+const { journey, step, expect } = require('@elastic/synthetics');
+const qs = require('querystring');
+
+journey('Auto Loan API Test', async ({ page, params }) => {
+  let accessToken;
+
+  step('Fetch OAuth Token', async () => {
+    const tokenResponse = await page.request.post('https://api.adithya.com/oauth/v1/token', {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: qs.stringify({
+        grant_type: 'client_credentials',
+        client_id: 'your-client-id',
+        client_secret: 'your-client-secret',
+      }),
+    });
+
+    expect(tokenResponse.status()).toBe(200);
+
+    const tokenData = await tokenResponse.json();
+    accessToken = tokenData.access_token;
+    expect(accessToken).toBeTruthy();
+  });
+
+  step('Call Auto Loan API', async () => {
+    const xmlBody = `<Request><LoanType>AUTO</LoanType></Request>`;
+
+    const apiResponse = await page.request.post('https://api.adithya.com/oauth/v1/auto-loan', {
+      headers: {
+        'Content-Type': 'application/xml',
+        'Authorization': `Bearer ${accessToken}`,
+      },
+      body: xmlBody,
+    });
+
+    expect(apiResponse.status()).toBe(200);
+
+    const responseText = await apiResponse.text();
+
+    // Simple string match (for more complex XML parsing use an XML parser)
+    expect(responseText.includes('auto-loan-approval-status')).toBe(true);
+  });
+});

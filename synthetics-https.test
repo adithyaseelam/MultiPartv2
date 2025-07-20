@@ -1,0 +1,40 @@
+const { journey, step, expect } = require('@elastic/synthetics');
+
+journey('Auto Loan Application Flow', async ({ page, browserContext }) => {
+  
+  step('Open browser and navigate to HTTPS URL', async () => {
+    await page.goto('https://your-url.com', { waitUntil: 'domcontentloaded' });
+    expect(page.url()).toContain('https://');
+  });
+
+  step('Enter Username', async () => {
+    await page.click('input[name="username"]'); // or use a more specific selector
+    await page.fill('input[name="username"]', 'your-username');
+  });
+
+  step('Enter Password', async () => {
+    await page.click('input[name="password"]');
+    await page.fill('input[name="password"]', 'your-password');
+  });
+
+  step('Click Sign On', async () => {
+    await page.click('button:has-text("Sign On")'); // update selector if needed
+  });
+
+  step('Click Auto Loan', async () => {
+    await page.click('a:has-text("Auto Loan")'); // or button, depending on element
+  });
+
+  step('Click Submit Application', async () => {
+    await page.click('button:has-text("Submit Application")');
+  });
+
+  step('Click Upload File', async () => {
+    const [fileChooser] = await Promise.all([
+      page.waitForEvent('filechooser'),
+      page.click('button:has-text("Upload File")'), // or label/input based on UI
+    ]);
+    await fileChooser.setFiles('/path/to/file.pdf'); // use a valid path during real tests
+  });
+
+});
